@@ -61,10 +61,6 @@ def git_auto_push(git_repo_paths=None, git_message=None, git_username=None, git_
                 continue
             logger.info(f"Processing repository '{path}' with branch '{branch}'")
 
-            # Path process
-            if not os.path.exists(path):
-                logger.warning(f"Path '{path}' does not exist, skipping...")
-                continue
             dirfile = os.path.abspath(path)
             
             # Add directory to safe.directory configuration

@@ -7,7 +7,9 @@ import os
 logger = get_logger(__name__)
 
 # 文件名用于存储路径
-PATH_FILE = "git_repo_path.txt"
+output_dir = os.path.join(os.path.dirname(__file__),"output")
+os.makedirs(output_dir, exist_ok=True)
+PATH_FILE =os.path.join(output_dir, "git_repo_path.txt")
 
 def read_git_repo_path():
     """从文件中读取 git_repo_path """
@@ -15,7 +17,7 @@ def read_git_repo_path():
         with open(PATH_FILE, 'r') as file:
             return file.read().strip()
     else:
-        return "/path/to/your/repo:branch"
+        return "/path/to/your/repo branch"
 
 def write_git_repo_path(path):
     """将 git_repo_path 写入文件 """
@@ -28,6 +30,11 @@ def write_git_repo_path(path):
 # 初始化状态变量
 initial_git_repo_path = read_git_repo_path()
 
+# 获取脚本所在目录的绝对路径
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 更改当前工作目录
+os.chdir(script_dir)
 
 def main():
     # Define the interface
