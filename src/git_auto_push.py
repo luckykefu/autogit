@@ -43,18 +43,22 @@ def git_auto_push(git_repo_paths=None, git_message=None, git_username=None, git_
     # Configure Git user information
     configure_git_user(git_username, git_email)
 
-    git_repo_paths = git_repo_paths.split("\n")
+    repo_paths = git_repo_paths.split("\n")
     logger.info(f"Git repository paths: {git_repo_paths}")
     
     # Process multiple repository paths and branches
-    for repo_info in git_repo_paths:
+    for repo_path in repo_paths:
         try:
-            repo_info = repo_info.strip()
-            if not repo_info:
+            repo_path = repo_path.strip()
+            if not repo_path:
                 continue
-            logger.info(f"Processing repository info: {repo_info}")
+            logger.info(f"Processing repository info: {repo_path}")
             # Split path and branch
-            path, branch =  repo_info.split(" ")
+            path, branch =  repo_path.split(" ")
+            path = os.path.abspath(path)
+            if not os.path.exists(path):
+                logger.warning(f"Path '{path}' does not exist, skipping...")
+                continue
             logger.info(f"Processing repository '{path}' with branch '{branch}'")
 
             # Path process
