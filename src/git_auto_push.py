@@ -2,49 +2,53 @@ import os
 import subprocess
 import datetime
 from git import Repo, GitCommandError
-from log import get_logger
-logger = get_logger(__name__)
+import log
+
+logger = log.get_logger(__name__)
+
 
 def configure_git_user(git_username, git_email):
     """Configure global Git user name and email."""
     try:
         if git_username:
             subprocess.run(
-                ["git", "config", "--global", "user.name", git_username],
-                check=True
+                ["git", "config", "--global", "user.name", git_username], check=True
             )
             logger.info(f"Configured git username: {git_username}")
 
         if git_email:
             subprocess.run(
-                ["git", "config", "--global", "user.email", git_email],
-                check=True
+                ["git", "config", "--global", "user.email", git_email], check=True
             )
             logger.info(f"Configured git email: {git_email}")
     except subprocess.CalledProcessError as e:
         logger.error(f"Failed to configure git user: {e}")
         raise
 
+
 def add_safe_directory(dirfile):
     """Add directory to Git safe.directory configuration."""
     try:
         subprocess.run(
             ["git", "config", "--global", "--add", "safe.directory", dirfile],
-            check=True
+            check=True,
         )
         logger.info(f"Added {dirfile} to git safe.directory")
     except subprocess.CalledProcessError as e:
         logger.error(f"Failed to add safe directory: {dirfile}, error: {e}")
         raise
 
-def git_auto_push(git_repo_paths=None, git_message=None, git_username=None, git_email=None):
+
+def git_auto_push(
+    git_repo_paths=None, git_message=None, git_username=None, git_email=None
+):
     """Automate the process of pushing to multiple Git repositories."""
     # Configure Git user information
     configure_git_user(git_username, git_email)
 
     repo_paths = git_repo_paths.split("\n")
     logger.info(f"Git repository paths: {git_repo_paths}")
-    
+
     # Process multiple repository paths and branches
     for repo_path in repo_paths:
         try:
@@ -53,7 +57,7 @@ def git_auto_push(git_repo_paths=None, git_message=None, git_username=None, git_
                 continue
             logger.info(f"Processing repository info: {repo_path}")
             # Split path and branch
-            path, branch =  repo_path.split(" ")
+            path, branch = repo_path.split(" ")
             path = os.path.abspath(path)
             if not os.path.exists(path):
                 logger.warning(f"Path '{path}' does not exist, skipping...")
@@ -61,7 +65,7 @@ def git_auto_push(git_repo_paths=None, git_message=None, git_username=None, git_
             logger.info(f"Processing repository '{path}' with branch '{branch}'")
 
             dirfile = os.path.abspath(path)
-            
+
             # Add directory to safe.directory configuration
             add_safe_directory(dirfile)
 
@@ -88,7 +92,9 @@ def git_auto_push(git_repo_paths=None, git_message=None, git_username=None, git_
             # Push changes to remote repository
             origin = repo.remote(name="origin")
             origin.push(branch)
-            logger.info(f"Successfully pushed changes to branch '{branch}' for repository '{dirfile}'")
+            logger.info(
+                f"Successfully pushed changes to branch '{branch}' for repository '{dirfile}'"
+            )
 
         except GitCommandError as e:
             logger.error(f"Git command error in repository '{dirfile}': {e}")
@@ -105,6 +111,6 @@ D:\Github\0MyApp\ImgProcess main
 D:\Github\0MyApp\UpdateSubtitle main
 D:\Github\0MyApp\WhisperWebUI main
 D:\Github\0MyApp\YTBDL main
+D:\Github\0MyApp main 
 """
     git_auto_push(git_paths)
-
