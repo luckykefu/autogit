@@ -2,8 +2,7 @@ import os
 import subprocess
 import datetime
 from git import Repo, GitCommandError
-from src.log import get_logger
-
+from log import get_logger
 logger = get_logger(__name__)
 
 def configure_git_user(git_username, git_email):
@@ -95,3 +94,17 @@ def git_auto_push(git_repo_paths=None, git_message=None, git_username=None, git_
             logger.error(f"Git command error in repository '{dirfile}': {e}")
         except Exception as e:
             logger.error(f"Unexpected error in repository '{dirfile}': {e}")
+
+
+if __name__ == "__main__":
+
+    git_paths = r"""D:\Github\0MyApp\AudioProcess main
+D:\Github\0MyApp\AutoPublishVideo main
+D:\Github\0MyApp\GitAutoPush main
+D:\Github\0MyApp\ImgProcess main
+D:\Github\0MyApp\UpdateSubtitle main
+D:\Github\0MyApp\WhisperWebUI main
+D:\Github\0MyApp\YTBDL main
+"""
+    git_auto_push(git_paths)
+
