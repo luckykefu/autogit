@@ -17,9 +17,17 @@ os.chdir(script_dir)
 # TODO: GitAutoPush
 from src.git_auto_push import git_auto_push
 
-if __name__ == '__main__':
-    git_repo_paths=r'D:\Github\0MyApp main'
+if __name__ == "__main__":
 
-    git_auto_push(git_repo_paths)
+    git_paths = r"""D:\Github\0MyApp\AudioProcess main
+D:\Github\0MyApp\AutoPublishVideo main
+D:\Github\0MyApp\GitAutoPush main
+D:\Github\0MyApp\ImgProcess main
+D:\Github\0MyApp\UpdateSubtitle main
+D:\Github\0MyApp\WhisperWebUI main
+D:\Github\0MyApp\YTBDL main
+D:\Github\0MyApp main 
+"""
+    git_auto_push(git_paths)
 
 #####################################################

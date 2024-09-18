@@ -2,9 +2,9 @@ import os
 import subprocess
 import datetime
 from git import Repo, GitCommandError
-from log import get_logger
+from . import log
 
-logger = get_logger(__name__)
+logger = log.get_logger(__name__)
 
 
 def configure_git_user(git_username, git_email):
