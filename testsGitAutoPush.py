@@ -26,7 +26,7 @@ D:\Github\0MyApp\ImgProcess main
 D:\Github\0MyApp\UpdateSubtitle main
 D:\Github\0MyApp\WhisperWebUI main
 D:\Github\0MyApp\YTBDL main
-D:\Github\0MyApp main 
+D:\Github\0MyApp main
 """
     git_auto_push(git_paths)
 
