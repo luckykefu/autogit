@@ -2,9 +2,9 @@ import os
 import subprocess
 import datetime
 from git import Repo, GitCommandError
-from . import log
+from .log import get_logger
 
-logger = log.get_logger(__name__)
+logger = get_logger(__name__)
 
 
 def configure_git_user(git_username, git_email):
@@ -103,6 +103,9 @@ def git_auto_push(
 
 
 if __name__ == "__main__":
+    sripts_path = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(sripts_path)
+    import log
 
     git_paths = r"""D:\Github\0MyApp\AudioProcess main
 D:\Github\0MyApp\AutoPublishVideo main
