@@ -1,7 +1,0 @@
-D:\Github\0MyApp\AudioProcess main
-D:\Github\0MyApp\AutoPublishVideo main
-D:\Github\0MyApp\GitAutoPush main
-D:\Github\0MyApp\ImgProcess main
-D:\Github\0MyApp\UpdateSubtitle main
-D:\Github\0MyApp\WhisperWebUI main
-D:\Github\0MyApp\YTBDL main
